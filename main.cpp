@@ -1,4 +1,4 @@
-#include "fibonacci.h"
+/*#include "fibonacci.h"
 #include <cstdio>
 #include <stdlib.h>
 
@@ -15,4 +15,24 @@ int main () {
   int n = get_int();
   std::printf("fib(%d) = %d\n", n, fib(n));
   return 0;
+}
+*/
+
+#include "mainwindow.h"
+#include <QApplication>
+#include <QDebug>
+
+int main(int argc, char *argv[])
+{
+    int exec;
+    try {
+        QApplication a(argc, argv);
+        MainWindow w;
+        w.show();
+        exec = a.exec();
+    } catch (...) {
+        qDebug() << "exitCode = " << exec;
+        return EXIT_FAILURE; // exit the application FAILURE
+    }
+    return exec;
 }
