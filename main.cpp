@@ -19,20 +19,29 @@ int main () {
 */
 
 #include "mainwindow.h"
+#include <iostream>
 #include <QApplication>
 #include <QDebug>
+#include <signal.h>
 
 int main(int argc, char *argv[])
 {
     int exec;
+    int signals_to_filter[8] = {SIGINT, SIGILL, SIGFPE, SIGSEGV, SIGTERM, SIGBREAK, SIGABRT, SIGABRT_COMPAT};
+    for(int i = 0; i < 8; i++) {
+      signal(signals_to_filter[i], [](int sig) {
+        qDebug() << "caught signal" << sig;
+        qApp->quit();
+      });
+    }
     try {
-        QApplication a(argc, argv);
-        MainWindow w;
-        w.show();
-        exec = a.exec();
+      QApplication a(argc, argv);
+      MainWindow w;
+      w.show();
+      exec = a.exec();
     } catch (...) {
-        qDebug() << "exitCode = " << exec;
-        return EXIT_FAILURE; // exit the application FAILURE
+      qDebug() << "exitCode = " << exec;
+      return EXIT_FAILURE; // exit the application FAILURE
     }
     return exec;
 }

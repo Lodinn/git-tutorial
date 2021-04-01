@@ -3,6 +3,14 @@
 
 #include <QMainWindow>
 
+class ExceptionThrower {
+public:
+  static void cause_exception();
+private:
+  int z = 0;
+};
+
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -12,7 +20,6 @@ public:
     ~MainWindow();
 
 private:
-    int z = 0;
 private slots:
 
 };
